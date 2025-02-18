@@ -24,7 +24,8 @@
 #endif
 
 #import <Cordova/CDVPluginResult.h>
-#import <Cordova/CDVUserAgentUtil.h>
+//#import <Cordova/CDVUserAgentUtil.h>
+#import "CDVUserAgentUtil.h"
 
 #define    kInAppBrowserTargetSelf @"_self"
 #define    kInAppBrowserTargetSystem @"_system"
