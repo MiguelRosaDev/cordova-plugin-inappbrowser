@@ -24,8 +24,50 @@
 #endif
 
 #import <Cordova/CDVPluginResult.h>
-//#import <Cordova/CDVUserAgentUtil.h>
-#import "CDVUserAgentUtil.h"
+
+// Remove the import for CDVUserAgentUtil.h
+// #import <Cordova/CDVUserAgentUtil.h>
+
+// Add the simplified implementation of CDVUserAgentUtil
+@interface CDVUserAgentUtil : NSObject
++ (void)acquireLock:(void (^)(NSInteger lockToken))block;
++ (void)releaseLock:(NSInteger*)lockToken;
++ (void)setUserAgent:(NSString*)value lockToken:(NSInteger)lockToken;
+@end
+
+@implementation CDVUserAgentUtil
+
+static NSInteger gLockToken = 0;
+static NSString* gUserAgent = nil;
+
++ (void)acquireLock:(void (^)(NSInteger lockToken))block
+{
+    @synchronized(self) {
+        gLockToken++;
+        block(gLockToken);
+    }
+}
+
++ (void)releaseLock:(NSInteger*)lockToken
+{
+    @synchronized(self) {
+        if (*lockToken == gLockToken) {
+            gLockToken = 0;
+        }
+        *lockToken = 0;
+    }
+}
+
++ (void)setUserAgent:(NSString*)value lockToken:(NSInteger)lockToken
+{
+    @synchronized(self) {
+        if (lockToken == gLockToken) {
+            gUserAgent = value;
+        }
+    }
+}
+
+@end
 
 #define    kInAppBrowserTargetSelf @"_self"
 #define    kInAppBrowserTargetSystem @"_system"
