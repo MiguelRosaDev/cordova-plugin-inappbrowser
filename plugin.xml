@@ -70,40 +70,35 @@
     <!-- ios -->
     <platform name="ios">
         <js-module src="www/inappbrowser.js" name="inappbrowser">
-            <clobbers target="cordova.InAppBrowser.open" />
-            <clobbers target="window.open" />
+            <clobbers target="cordova.InAppBrowser" />
         </js-module>
         <config-file target="config.xml" parent="/*">
             <feature name="InAppBrowser">
-                <param name="ios-package" value="CDVInAppBrowser" />
-                <param name="onload" value="true" />
-            </feature>
-            <feature name="UIInAppBrowser">
-                <param name="ios-package" value="CDVUIInAppBrowser" />
-                <param name="onload" value="true" />
-            </feature>
-            <feature name="WKInAppBrowser">
                 <param name="ios-package" value="CDVWKInAppBrowser" />
                 <param name="onload" value="true" />
             </feature>
+            <feature name="SystemInAppBrowser">
+                <param name="ios-package" value="CDVSafariInAppBrowser" />
+                <param name="onload" value="true" />
+            </feature>
         </config-file>
-
-        <header-file src="src/ios/CDVInAppBrowser.h" />
-	    <source-file src="src/ios/CDVInAppBrowser.m" />
         <header-file src="src/ios/CDVInAppBrowserOptions.h" />
         <source-file src="src/ios/CDVInAppBrowserOptions.m" />
         <header-file src="src/ios/CDVInAppBrowserNavigationController.h" />
         <source-file src="src/ios/CDVInAppBrowserNavigationController.m" />
-	    <header-file src="src/ios/CDVUIInAppBrowser.h" />
-	    <source-file src="src/ios/CDVUIInAppBrowser.m" />
 	    <header-file src="src/ios/CDVWKInAppBrowser.h" />
 	    <source-file src="src/ios/CDVWKInAppBrowser.m" />
 	    <header-file src="src/ios/CDVWKInAppBrowserUIDelegate.h" />
 	    <source-file src="src/ios/CDVWKInAppBrowserUIDelegate.m" />
+        <source-file src="src/ios/CDVSafariInAppBrowser.swift" />
+        <source-file src="src/ios/SafariBrowserPlugin.swift" />
+        <source-file src="src/ios/BrowserCacheManager.swift" />
+        <source-file src="src/ios/SafariViewController.swift" />
+        <source-file src="src/ios/SafariBrowserConfigurations.swift" />
 
 	    <framework src="CoreGraphics.framework" />
+        <dependency id="cordova-plugin-add-swift-support" url="https://github.com/OutSystems/cordova-plugin-add-swift-support.git#2.0.3-OS1"/>
     </platform>
-
     <!-- osx -->
     <platform name="osx">
         <js-module src="www/inappbrowser.js" name="inappbrowser">
